@@ -1,9 +1,9 @@
 {
-  "version": "2.0.0",
-  "targetAntigravityVersion": "2.34.0+",
-  "dictCount": 3507,
+  "version": "2.1.0",
+  "targetAntigravityVersion": "2.35.2+",
+  "dictCount": 3623,
   "coreWordsCount": 70,
   "prefixRulesCount": 106,
-  "dynamicRulesCount": 293,
-  "updatedAt": "2026-11-23"
+  "dynamicRulesCount": 308,
+  "updatedAt": "2026-11-26"
 }

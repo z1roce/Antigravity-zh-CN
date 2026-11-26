@@ -1,5 +1,5 @@
-// === ANTIGRAVITY_ZH_CN_BEGIN v2.0.0 ===
-// Antigravity Chinese Localization Engine (v2.0.0 - github.com/z1roce/Antigravity-zh-CN)
+// === ANTIGRAVITY_ZH_CN_BEGIN v2.1.0 ===
+// Antigravity Chinese Localization Engine (v2.1.0 - github.com/z1roce/Antigravity-zh-CN)
 (function() {
   const dictionary = __ZH_DICT__;
 
@@ -102,6 +102,9 @@ const subTerms = {
   'install': '安装', 'uninstall': '卸载', 'configure': '配置', 'edit': '编辑',
   'remove': '移除', 'add': '添加', 'copy': '复制', 'move': '移动', 'fork': '分叉',
   'mark as read': '标记为已读', 'mark as unread': '标记为未读',
+  'instance': '实例', 'instances': '实例',
+  'identity': '身份', 'identities': '身份',
+  'permission': '权限', 'permissions': '权限',
   'was': '已', 'were': '已', 'is': '为', 'are': '为',
   'enabled': '已启用', 'disabled': '已禁用'
 };
@@ -118,6 +121,8 @@ function trTerm(s, dict) {
 const dynamicRules = [
   // 1. 配额、订阅与积分
   [/^Your Plan:\s*(.+)$/i, (m, d) => `您的订阅方案：${trTerm(m[1], d)}`],
+  [/^Failed to\s+(archive|unarchive|delete|rename|pin|unpin|fork|duplicate|load|create)\s+conversation$/i, (m, d) => `${trTerm(m[1], d)}对话失败`],
+  [/^Couldn't\s+(archive|unarchive|delete|rename|pin|unpin|fork|duplicate|load|create)\s+conversation$/i, (m, d) => `无法${trTerm(m[1], d)}对话`],
   [/^Available AI Credits:\s*([\d,]+)$/i, (m) => `可用 AI 积分：${m[1]}`],
   [/^When toggled on,\s*(.+?)\s+will use your AI credits to fulfill model requests once you['’]re out of model quota\.\s*(.+?)\s+will always use your model quota first before using AI credits\.?$/i,
     (m) => `启用后，当您的模型配额用尽时，${m[1]} 将使用您的 AI 积分来完成模型请求。${m[2]} 将始终优先使用模型配额。`],
@@ -472,6 +477,19 @@ const dynamicRules = [
   [/^(.+?)\s+Name$/i, (m, d) => `${trTerm(m[1], d)}名称`],
   [/^(.+?)\s+failed$/i, (m, d) => `${trTerm(m[1], d)}失败`],
   [/^See\s+(.+?):\s*(.+)$/i, (m, d) => `查看${trTerm(m[1], d)}：${m[2]}`],
+  [/^System default \((.+)\)$/i, (m, d) => `系统默认（${trTerm(m[1], d)}）`],
+  [/^Version\s+([0-9][0-9A-Za-z._+-]*)$/i, (m) => `版本 ${m[1]}`],
+  [/^(.+?)\s+\(Remote\)$/, (m, d) => `${trTerm(m[1], d)}（远程）`],
+  [/^(.+?)\s+\(experimental\)$/i, (m, d) => `${trTerm(m[1], d)}（实验性）`],
+  [/^(.+?)\s+color picker$/i, (m, d) => `${trTerm(m[1], d)}颜色选择器`],
+  [/^Dismiss:\s*(.+)$/i, (m, d) => `忽略：${trTerm(m[1], d)}`],
+  [/^Keep:\s*(.+)$/i, (m, d) => `保留：${trTerm(m[1], d)}`],
+  [/^Revoke all:\s*(.+)$/i, (m, d) => `全部撤销：${trTerm(m[1], d)}`],
+  [/^Revoke:\s*(.+)$/i, (m, d) => `撤销：${trTerm(m[1], d)}`],
+  [/^Move to\s+(.+)$/i, (m, d) => `移至 ${trTerm(m[1], d)}`],
+  [/^New\s+(.+?)(?:\.{3}|…)$/i, (m, d) => `新建${trTerm(m[1], d)}…`],
+  [/^Show\s+(automations?|plugins?|skills?|rules?|hooks?|workflows?|subagents?|details?|instances?)$/i, (m, d) => `显示${trTerm(m[1], d)}`],
+  [/^Voice speed,\s*(.+)$/i, (m) => `语速，${m[1]}`],
 ];
 
 

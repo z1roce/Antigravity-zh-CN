@@ -249,6 +249,32 @@ function Get-AntigravityVersion([string]$RootDir) {
             if ($pkg.version) { return [string]$pkg.version }
         } catch {}
     }
+    foreach ($asarName in @('resources\app.asar', 'resources\app.asar.disabled')) {
+        $asarFile = Join-Path $RootDir $asarName
+        if (Test-Path -LiteralPath $asarFile) {
+            try {
+                $fs = [System.IO.File]::Open($asarFile, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
+                try {
+                    $br = New-Object System.IO.BinaryReader($fs)
+                    $null = $br.ReadUInt32()
+                    $headerSize = $br.ReadUInt32()
+                    $null = $br.ReadUInt32()
+                    $jsonLen = $br.ReadUInt32()
+                    if ($jsonLen -gt 0 -and $jsonLen -lt 16MB) {
+                        $hdr = [System.Text.Encoding]::UTF8.GetString($br.ReadBytes([int]$jsonLen)) | ConvertFrom-Json
+                        $pkgNode = $hdr.files.'package.json'
+                        if ($pkgNode -and $pkgNode.size -gt 0 -and $pkgNode.size -lt 1MB) {
+                            $fs.Position = 8L + [long]$headerSize + [long]$pkgNode.offset
+                            $pkgJson = [System.Text.Encoding]::UTF8.GetString($br.ReadBytes([int]$pkgNode.size)) | ConvertFrom-Json
+                            if ($pkgJson.version) { return [string]$pkgJson.version }
+                        }
+                    }
+                } finally {
+                    $fs.Dispose()
+                }
+            } catch {}
+        }
+    }
     $verFile = Join-Path $RootDir 'version'
     if (Test-Path -LiteralPath $verFile) {
         $v = (Read-Utf8Text $verFile).Trim()

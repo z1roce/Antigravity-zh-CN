@@ -75,7 +75,14 @@ const dynCases = [
   ['The folder “demo” does not exist. Would you like to create it?', '文件夹“demo”不存在。是否创建？'],
   ['No MCP servers found for "github"', '未找到与“github”匹配的 MCP 服务器'],
   ['Worked for 1m 23s', '运行耗时 1 分 23 秒'],
-  ['5 minutes ago', '5 分钟前']
+  ['5 minutes ago', '5 分钟前'],
+  ['Orchestrator model selection', '编排器模型选择'],
+  ['Available dictation languages', '可用语音听写语言'],
+  ['Browser actuation rules', '浏览器操作规则'],
+  ['System default (English)', '系统默认（English）'],
+  ['Version 2.35.2', '版本 2.35.2'],
+  ['Revoke all: GitHub', '全部撤销：GitHub'],
+  ["Failed to archive conversation", '归档对话失败']
 ];
 for (const [inp, exp] of dynCases) {
   assert.strictEqual(translateText(inp, { isControl: false }), exp, `翻译断言失败: "${inp}"`);
@@ -170,6 +177,8 @@ assert.strictEqual(appMenu.items[0].submenu.items[0].label, '新建窗口');
 fakeElectron.dialog.showMessageBox({}, { title: 'Confirm Quit', buttons: ['Cancel', 'Quit'] });
 assert.strictEqual(cap.msg.title, '确认退出');
 assert.deepStrictEqual(cap.msg.buttons, ['取消', '退出']);
+fakeElectron.dialog.showOpenDialog({ title: 'Open workspace' });
+assert.strictEqual(cap.open.title, '打开工作区');
 console.log('    PASS: 菜单与系统对话框 Hook 断言通过');
 
 console.log('\n全部 5 项校验全部通过！');
