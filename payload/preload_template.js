@@ -1,5 +1,5 @@
-// === ANTIGRAVITY_ZH_CN_BEGIN v2.1.0 ===
-// Antigravity Chinese Localization Engine (v2.1.0 - github.com/z1roce/Antigravity-zh-CN)
+// === ANTIGRAVITY_ZH_CN_BEGIN v2.2.0 ===
+// Antigravity Chinese Localization Engine (v2.2.0 - github.com/z1roce/Antigravity-zh-CN)
 (function() {
   const dictionary = __ZH_DICT__;
 
@@ -105,6 +105,9 @@ const subTerms = {
   'instance': '实例', 'instances': '实例',
   'identity': '身份', 'identities': '身份',
   'permission': '权限', 'permissions': '权限',
+  'feed': '动态流', 'feeds': '动态流',
+  'secret': '密钥', 'secrets': '密钥',
+  'screenshot': '截图', 'screenshots': '截图',
   'was': '已', 'were': '已', 'is': '为', 'are': '为',
   'enabled': '已启用', 'disabled': '已禁用'
 };
@@ -490,6 +493,15 @@ const dynamicRules = [
   [/^New\s+(.+?)(?:\.{3}|…)$/i, (m, d) => `新建${trTerm(m[1], d)}…`],
   [/^Show\s+(automations?|plugins?|skills?|rules?|hooks?|workflows?|subagents?|details?|instances?)$/i, (m, d) => `显示${trTerm(m[1], d)}`],
   [/^Voice speed,\s*(.+)$/i, (m) => `语速，${m[1]}`],
+  [/^(\d+)\s+of\s+(\d+)\s+steps?\s+done$/i, (m) => `已完成 ${m[1]} / ${m[2]} 步`],
+  [/^(\d+)\s+tasks?\s+running$/i, (m) => `${m[1]} 个任务正在运行`],
+  [/^(\d+)\s+needing your input$/i, (m) => `${m[1]} 项需要您输入`],
+  [/^Permission:\s*(.+)$/i, (m, d) => `权限：${trTerm(m[1], d)}`],
+  [/^Project:\s*(.+)$/i, (m) => `项目：${m[1]}`],
+  [/^Reply in thread to\s+(.+)$/i, (m) => `在话题中回复 ${m[1]}`],
+  [/^Retry uploading\s+(.+)$/i, (m) => `重新上传 ${m[1]}`],
+  [/^Upload failed for\s+(.+)$/i, (m) => `上传失败：${m[1]}`],
+  [/^Preview\s+(.+)$/i, (m, d) => `预览 ${trTerm(m[1], d)}`],
 ];
 
 

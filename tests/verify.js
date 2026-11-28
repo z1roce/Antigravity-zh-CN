@@ -82,7 +82,13 @@ const dynCases = [
   ['System default (English)', '系统默认（English）'],
   ['Version 2.35.2', '版本 2.35.2'],
   ['Revoke all: GitHub', '全部撤销：GitHub'],
-  ["Failed to archive conversation", '归档对话失败']
+  ["Failed to archive conversation", '归档对话失败'],
+  ['Fork in New Git Worktree', '在新建 Git 工作树中分叉'],
+  ['Administrator access (UAC)', '管理员访问权限（UAC）'],
+  ['Search settings', '搜索设置'],
+  ['3 of 7 steps done', '已完成 3 / 7 步'],
+  ['2 tasks running', '2 个任务正在运行'],
+  ['Reply in thread to coordinator', '在话题中回复 coordinator']
 ];
 for (const [inp, exp] of dynCases) {
   assert.strictEqual(translateText(inp, { isControl: false }), exp, `翻译断言失败: "${inp}"`);

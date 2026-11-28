@@ -495,6 +495,11 @@ function Invoke-Install([string]$RootDir, [bool]$AutoClose) {
     if (-not (Test-Path -LiteralPath $bakPreload)) { Write-Utf8NoBom $bakPreload $cleanPreload }
     if (-not (Test-Path -LiteralPath $bakMenu))    { Write-Utf8NoBom $bakMenu    $cleanMenu }
 
+    # 自动清理非当前客户端版本的历史过期原件备份目录
+    Get-ChildItem -LiteralPath $BackupRoot -Directory -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -ne $agVersion } |
+        ForEach-Object { Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction SilentlyContinue }
+
     # 组装并写入
     $payloads     = Build-InjectionPayloads
     $finalPreload = $cleanPreload + "`r`n" + $payloads.PreloadPayload
